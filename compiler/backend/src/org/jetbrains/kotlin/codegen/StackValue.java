@@ -459,23 +459,27 @@ public abstract class StackValue {
             boolean isToTypeUnboxed = isUnboxedInlineClass(toKotlinType, toType);
             if (isFromTypeUnboxed && !isToTypeUnboxed) {
                 boxInlineClass(fromKotlinType, v);
+                return true;
             }
             else if (!isFromTypeUnboxed && isToTypeUnboxed) {
                 unboxInlineClass(fromType, toKotlinType, v);
+                return true;
             }
         }
         else if (isFromTypeInlineClass) {
             if (isUnboxedInlineClass(fromKotlinType, fromType)) {
                 boxInlineClass(fromKotlinType, v);
+                return true;
             }
         }
         else { // isToTypeInlineClass is `true`
             if (isUnboxedInlineClass(toKotlinType, toType)) {
                 unboxInlineClass(fromType, toKotlinType, v);
+                return true;
             }
         }
 
-        return true;
+        return false;
     }
 
     private static boolean isUnboxedInlineClass(@NotNull KotlinType kotlinType, @NotNull Type actualType) {
