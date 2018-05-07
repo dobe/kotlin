@@ -356,12 +356,12 @@ public class ExpressionCodegen extends KtVisitor<StackValue, StackValue> impleme
         return (ScriptContext) context;
     }
 
-    public StackValue genLazy(KtElement expr, Type type) {
+    private StackValue genLazy(KtElement expr, Type type) {
         StackValue value = gen(expr);
         return StackValue.coercion(value, type, null);
     }
 
-    public StackValue genLazy(KtElement expr, Type type, KotlinType kotlinType) {
+    private StackValue genLazy(KtElement expr, Type type, KotlinType kotlinType) {
         StackValue value = gen(expr);
         return StackValue.coercion(value, type, kotlinType);
     }
